@@ -1,6 +1,6 @@
-# FPGA Clone of Konami GX400 Arcade System for MiSTer
+## Nemesis MiSTer FPGA Core
 
-FPGA compatible core for the Nemesis (1985) arcade hardware for MiSTer FPGA, written by [LMN-san][@LmnSama], [OScherler][@oscherler], and [Raki][@RCAVictorCo]. This core is based on the Nemesis schematics from Konami and has been verified against several different physical PCBs (Konami Bubble System, Salamander, Salamander Bootleg). The game is fully playable and there are no known issues.
+FPGA compatible core for the Nemesis (1985) by Konami arcade hardware for MiSTer FPGA, written by [LMN-san][@LmnSama], [OScherler][@oscherler], and [Raki][@RCAVictorCo]. This core is based on the Nemesis schematics from Konami and has been verified against several different physical PCBs (Konami Bubble System, Salamander, Salamander Bootleg). The game is fully playable and there are no known issues.
 
 Our goal during development was to be as close to the original hardware as possible, and not to rely on superficiality and supposition, which is why, after releasing the first version, we continued improving the reproduction accuracy with more tests and measurements. Great efforts have been made towards accuracy. Raki wrote a custom ROM for the 68000 to test all possible cases of tile/sprite priority bits on original hardware. LmnSan wrote a custom ROM for the Z80 to play test sounds on all channels, at every volume and every frequency, and did a thorough analysis of the results compared to original hardware. OScherler also knows how to write custom ROMs, but the ones he made for this project are less impressive.
 
@@ -82,4 +82,4 @@ The authors would like to thank
 and
 
 * Jotego, for the jtframe framework
-* Sorgelig, for the MiSTer project
+* Sorgelig, for the MiSTer FPGA project
