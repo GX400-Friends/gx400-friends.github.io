@@ -15,14 +15,20 @@ This core was developed using the [jtframe][] framework by Jotego ([@topapate][]
 [@topapate]:    https://twitter.com/topapate
 [mosaic]:       doc/nemesis-mosaic.gif
 
+## Installation
+
+Install from [JTCORES for MiSTer][jtcores_mister], either via [Update All][], which installs them by default, or manually by following [these instructions][jtcores_instructions].
+
+[jtcores_mister]: https://github.com/jotego/jtcores_mister
+[Update All]: https://github.com/theypsilon/Update_All_MiSTer
+[jtcores_instructions]: https://github.com/jotego/jtcores_mister#download
+
 ## Supported Games
 
 Game         | Status      | Release
 -------------|-------------|----------
 Nemesis      | Implemented | Stable
 Nemesis (UK) | Implemented | Stable
-RF2          | In Progress | None
-Konami GT    | In Progress | None
 
 ## Custom ICs
 
