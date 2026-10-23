@@ -1,0 +1,12 @@
+title: GX400 Friends
+description: FPGA Clone of the Konami GX400 Arcade System
+remote_theme: pages-themes/slate@v0.2.0
+plugins:
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
+github:
+  is_project_page: false
+exclude:
+  - Makefile
+  - vendor
+  - Gemfile
+  - Gemfile.lock
