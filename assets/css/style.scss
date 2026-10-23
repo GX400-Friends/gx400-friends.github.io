@@ -1,0 +1,17 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+@media screen
+{
+	body
+	{
+		background-color: inherit;
+	}
+
+	.inner
+	{
+		max-width: 800px;
+	}
+}
