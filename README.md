@@ -6,7 +6,10 @@ Our goal during development was to be as close to the original hardware as possi
 
 This core was developed using the [jtframe][] framework by Jotego ([@topapate][]).
 
-<img width="780" height="504" alt="Animation of the progress of the GFX development, with 6 frames from the game evolving over 30 frames from a garbled bunch tiles to perfect renditions of backgrounds and sprites." src="doc/nemesis-mosaic.gif" />
+<video width="780" height="504" controls>
+  <source src="doc/nemesis-mosaic.mp4" type="video/mp4">
+  <p>Video animation of the progress of the GFX development, with 6 frames from the game evolving over 30 frames from a garbled bunch tiles to perfect renditions of backgrounds and sprites.</p>
+</video>
 
 [@LmnSama]:     https://twitter.com/@LmnSama
 [@oscherler]:   https://tooting.ch/@oscherler
