@@ -23,5 +23,21 @@ This LS138 takes address lines A13–A15 as inputs A/B/C, which form a 3-bit num
 
 The third output of the LS138 at 10C, Y2, is activated when `A[15:13] = b010`, and controls the RAM’s Chip Enable. Therefore, the RAM is located at addresses `h4000–h7FFF`. But there are only 2 kB of RAM, which requires 11 address lines, so the range for the RAM is `h4000–h47FF`[^1].
 
+### Sound Command
+
+Ignoring outputs Y5 and Y6 for a moment, let’s look at Y7. It is enabled when `A[15:13] = b111`, and enables a second LS138, labelled “11C.” Its inputs, this time, are address lines A0–A2. The first used output on that second LS138 is Y1, which is enabled when `A[15:13] = b111` and `A[2:0] = b010`, which corresponds to address `hE002`. Y1 is connected the the Chip Enable of LS374 11A, which is the Octal D Flip-Flop that holds the sound command sent from the main CPU. Therefore, when the Z80 reads at address `hE007`, the result is the last sound command received.
+
+### Togglable Low-Pass Filters
+
+Another D flip-flop is connected on output Y7 of decoder 11C. It’s an LS174 Hex D Flip-Flop, but it’s the clock input that is driven by the decoder. A11 and A12 are connected to input D of flip-flops 5 and 6, respectively, the output of which drive a CD4066 Quad Bilateral Switch which toggles low-pass filters at the output of the AY-3-8910 PSGs.
+
+This gives us four memory addresses of interest, when `A[15:13] = b111`, `A[2:0] = b111`:
+
+* `hE007` when `A[12:11] = 0b00`: both filters are disabled;
+* `hE807` when `A[12:11] = 0b01`: filter on PSG 7E is enabled;
+* `hF007` when `A[12:11] = 0b10`: filter on PSG 8E is enabled;
+* `hF807` when `A[12:11] = 0b11`: both filters are enabled.
+
+When one of these addresses is accessed by the Z80, whether it’s for a read or write operation, the clock input of the flip-flop is triggered, and the values of A11 and A12 are latched on the Q output of flip-flops 5 and 6, which enables or disables the filters as described. This happens when the `/MREQ`(Memory Request) line on the Z80 is released, because this signal is used to enable the first LS138 decoder.
 
 [^1]: Technically, since `A11` and `A12` are ignored when decoding the RAM’s Chip Enable, the RAM is duplicated eight times in the address space: at `h4000–h47FF`, `h4800–h4FFF`, `h5000–h57FF`, etc, until `h7800–h7FFF`, and can be accessed at any of these address ranges. But in practice, only the first one is usually used.
