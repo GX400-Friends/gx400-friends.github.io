@@ -314,6 +314,7 @@ PLATFORMS
 DEPENDENCIES
   bigdecimal
   github-pages (~> 232)
+  jekyll-theme-slate
 
 BUNDLED WITH
    2.6.9
