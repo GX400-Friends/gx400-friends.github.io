@@ -40,4 +40,30 @@ This gives us four memory addresses of interest, when `A[15:13] = b111`, `A[2:0]
 
 When one of these addresses is accessed by the Z80, whether it’s for a read or write operation, the clock input of the flip-flop is triggered, and the values of `A11` and `A12` are latched on the output of flip-flops 5 and 6, which enables or disables the filters as described. This happens when the `/MREQ`(Memory Request) line on the Z80 is released, because this signal is used to enable the first LS138 decoder.
 
+### AY-3-8910 Programmable Sound Generators
+
+The AY-3-8910 Programmable Sound Generator is operated using an 8-bit Data/Address bus and two control signals, `BDIR` and `BC1`. The address of one of its 16 registers is first set on the Data/Address bus and latched by setting `BDIR` and `BC1` to one. Following that, with the selected register:
+
+* a read operation can be performed by setting `BDIR` to zero and `BC1` to one, then reading the data on the Data/Address bus;
+* a write operation can be performed by setting the value to be written on the Data/Address bus, then setting `BDIR` to one and `BC1` to zero.
+
+When `BDIR` and `BC1` are both set to zero, the PSG is inactive and sets the Data/Address bus in a high impedance state.
+
+Looking at AY-3-8910 7E, its control signals are driven by output `Y5` of decoder 11C and address lines `A9` and `A10` in the following manner:
+
+* `BDIR = Y5 NOR A9`, and is one when `Y5` and `A9` are both zero;
+* `BC1  = Y5 NOR A10`, and is one when `Y5` and `A10` are both zero.
+
+This results in the following addresses, when `A[15:13] = b111`, `A[2:0] = b101`:
+
+* `hE005`: `A[10:9] = 0b00`, so `BDIR = 1` and `BC1 = 1`: Register address latching;
+* `hE205`: `A[10:9] = 0b01`, so `BDIR = 0` and `BC1 = 1`: Register read;
+* `hE405`: `A[10:9] = 0b10`, so `BDIR = 1` and `BC1 = 0`: Register write.
+
+Similarly, the addresses for AY-3-8910 7E, whose control signals are driven by output `Y6` of decoder 11C and address lines `A7` and `A8` are:
+
+* `hE006`: `A[8:7] = 0b00`, so `BDIR = 1` and `BC1 = 1`: Register address latching;
+* `hE086`: `A[8:7] = 0b01`, so `BDIR = 0` and `BC1 = 1`: Register read;
+* `hE106`: `A[8:7] = 0b10`, so `BDIR = 1` and `BC1 = 0`: Register write.
+
 [^1]: Technically, since `A11` and `A12` are ignored when decoding the RAM’s Chip Enable, the RAM is duplicated eight times in the address space: at `h4000–h47FF`, `h4800–h4FFF`, `h5000–h57FF`, etc, until `h7800–h7FFF`, and can be accessed at any of these address ranges. But in practice, only the first one is usually used.
